@@ -187,6 +187,7 @@ AUTH_USER_MODEL = "user.SNEKUser"
 AUTHENTICATION_BACKENDS = [
     "graphql_jwt.backends.JSONWebTokenBackend",
     "django.contrib.auth.backends.ModelBackend",
+    "bifrost.auth.backends.EmailBackend",
 ]
 
 # > Internationalization
