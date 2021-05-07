@@ -18,11 +18,37 @@ class SNEKUser(AbstractUser, ClusterableModel):
         unique=True,
         validators=[django.contrib.auth.validators.UnicodeUsernameValidator()],
     )
+    birthdate = models.DateField(
+        auto_now=False, auto_now_add=False, null=True, blank=False
+    )
+    telephone = models.CharField(null=True, blank=False, max_length=40)
+    address = models.CharField(null=True, blank=False, max_length=60)
+    city = models.CharField(null=True, blank=False, max_length=60)
+    postal_code = models.CharField(null=True, blank=False, max_length=12)
+    country = models.CharField(null=True, blank=False, max_length=2)
+    company_name = models.CharField(null=True, blank=True, max_length=250)
+    company_vat = models.CharField(null=True, blank=True, max_length=250)
 
     panels = [
         MultiFieldPanel(
             [
                 FieldPanel("username"),
+                FieldPanel("first_name"),
+                FieldPanel("last_name"),
+                FieldPanel("email"),
+            ],
+            "Main",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("birthdate"),
+                FieldPanel("telephone"),
+                FieldPanel("address"),
+                FieldPanel("city"),
+                FieldPanel("postal_code"),
+                FieldPanel("country"),
+                FieldPanel("company_name"),
+                FieldPanel("company_vat"),
             ],
             "Details",
         ),
@@ -36,10 +62,29 @@ class SNEKUser(AbstractUser, ClusterableModel):
 
     graphql_fields = [
         GraphQLString("username"),
+        GraphQLString("first_name"),
+        GraphQLString("last_name"),
+        GraphQLString("email"),
+        GraphQLString("birthdate"),
+        GraphQLString("telephone"),
+        GraphQLString("address"),
+        GraphQLString("city"),
+        GraphQLString("postal_code"),
+        GraphQLString("country"),
+        GraphQLString("company_name"),
+        GraphQLString("company_vat"),
     ]
 
     def __str__(self):
         return f"{self.username}"
+
+
+class Landlord(models.Model):
+    user = models.OneToOneField("SNEKUser", on_delete=models.CASCADE, primary_key=True)
+
+
+class Tenant(models.Model):
+    user = models.OneToOneField("SNEKUser", on_delete=models.CASCADE, primary_key=True)
 
 
 # SPDX-License-Identifier: (EUPL-1.2)
