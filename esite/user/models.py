@@ -18,28 +18,11 @@ class SNEKUser(AbstractUser, ClusterableModel):
         unique=True,
         validators=[django.contrib.auth.validators.UnicodeUsernameValidator()],
     )
-    birthdate = models.DateField(
-        auto_now=False, auto_now_add=False, null=True, blank=False
-    )
-    telephone = models.CharField(null=False, blank=False, max_length=40)
-    address = models.CharField(null=True, blank=True, max_length=60)
-    city = models.CharField(null=True, blank=True, max_length=60)
-    postal_code = models.CharField(null=True, blank=True, max_length=12)
-    country = models.CharField(null=True, blank=True, max_length=2)
 
     panels = [
         MultiFieldPanel(
             [
                 FieldPanel("username"),
-                FieldPanel("first_name"),
-                FieldPanel("last_name"),
-                FieldPanel("email"),
-                FieldPanel("birthdate"),
-                FieldPanel("telephone"),
-                FieldPanel("address"),
-                FieldPanel("city"),
-                FieldPanel("postal_code"),
-                FieldPanel("country"),
             ],
             "Details",
         ),
@@ -53,21 +36,7 @@ class SNEKUser(AbstractUser, ClusterableModel):
 
     graphql_fields = [
         GraphQLString("username"),
-        GraphQLString("first_name"),
-        GraphQLString("last_name"),
-        GraphQLString("email"),
-        GraphqlDatetime("birthdate"),
-        GraphQLString("telephone"),
-        GraphQLString("address"),
-        GraphQLString("city"),
-        GraphQLString("postal_code"),
-        GraphQLString("country"),
-        GraphQLBoolean("is_active"),
     ]
-
-    # Custom save function
-    def save(self, *args, **kwargs):
-        super(SNEKUser, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.username}"
