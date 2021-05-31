@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     # Our own pages
     "esite.colorfield",
     "esite.home",
+    "esite.property",
     # Django core apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -145,7 +146,7 @@ DATABASES = {
 
 # > Graphene Configuration
 GRAPHENE = {
-    "SCHEMA": "bifrost.schema.schema",
+    "SCHEMA": "bifrost.api.schema.schema",
 }
 
 BIFROST_APPS = {
@@ -155,7 +156,7 @@ BIFROST_APPS = {
     "images": "",
     "user": "",
     "navigation": "",
-    "utils": "",
+    "property": "",
 }
 
 BIFROST_ADD_SEARCH_HIT = True

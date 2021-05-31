@@ -4,10 +4,11 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from modelcluster.models import ClusterableModel
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+from esite.utils.models import ContactMixin
 
 
 # Extend AbstractUser Model from django.contrib.auth.models
-class SNEKUser(AbstractUser, ClusterableModel):
+class SNEKUser(AbstractUser, ClusterableModel, ContactMixin):
     username = models.CharField(
         "username",
         null=True,
@@ -21,11 +22,6 @@ class SNEKUser(AbstractUser, ClusterableModel):
     birthdate = models.DateField(
         auto_now=False, auto_now_add=False, null=True, blank=False
     )
-    telephone = models.CharField(null=True, blank=False, max_length=40)
-    address = models.CharField(null=True, blank=False, max_length=60)
-    city = models.CharField(null=True, blank=False, max_length=60)
-    postal_code = models.CharField(null=True, blank=False, max_length=12)
-    country = models.CharField(null=True, blank=False, max_length=2)
     company_name = models.CharField(null=True, blank=True, max_length=250)
     company_vat = models.CharField(null=True, blank=True, max_length=250)
 
@@ -79,12 +75,18 @@ class SNEKUser(AbstractUser, ClusterableModel):
         return f"{self.username}"
 
 
-class Landlord(models.Model):
+class Landlord(ClusterableModel):
     user = models.OneToOneField("SNEKUser", on_delete=models.CASCADE, primary_key=True)
 
+    def __str__(self):
+        return f"{self.user.username}"
 
-class Tenant(models.Model):
+
+class Tenant(ClusterableModel):
     user = models.OneToOneField("SNEKUser", on_delete=models.CASCADE, primary_key=True)
+
+    def __str__(self):
+        return f"{self.user.username}"
 
 
 # SPDX-License-Identifier: (EUPL-1.2)

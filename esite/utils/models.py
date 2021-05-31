@@ -21,6 +21,17 @@ class TimeStampMixin(models.Model):
         abstract = True
 
 
+class ContactMixin(models.Model):
+    telephone = models.CharField(null=True, blank=False, max_length=40)
+    address = models.CharField(null=True, blank=False, max_length=60)
+    city = models.CharField(null=True, blank=False, max_length=60)
+    postal_code = models.CharField(null=True, blank=False, max_length=12)
+    country = models.CharField(null=True, blank=False, max_length=2)
+
+    class Meta:
+        abstract = True
+
+
 class LinkFields(models.Model):
     """
     Adds fields for internal and external links with some methods to simplify the rendering:

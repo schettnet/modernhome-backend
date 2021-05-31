@@ -1,10 +1,11 @@
 {
-    "python.pythonPath": ".venv/bin/python",
-    "editor.rulers": [80,120],
-    "editor.fontFamily": "Fira Code, Consolas, 'Courier New', monospace",
+    "editor.rulers": [
+        80,
+        120
+    ],
     "editor.fontLigatures": true,
     "editor.snippetSuggestions": "top",
-    "terminal.integrated.fontFamily": "Consolas",
+    "terminal.integrated.fontFamily": "monospace",
     "workbench.colorTheme": "Dracula Soft",
     "cSpell.ignoreWords": [
         "aichner",
@@ -40,5 +41,6 @@
         "precached",
         "renamer",
         "webfonts"
-    ]
+    ],
+    "python.formatting.provider": "black"
 }
